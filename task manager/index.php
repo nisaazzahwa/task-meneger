@@ -1,10 +1,6 @@
 <?php
 error_reporting(0);
 session_start();
-if (!isset($_SESSION['user']) or $_SESSION['level'] != "mhs") {
-    header("location:../index.php");
-    exit();
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,7 +28,7 @@ if (!isset($_SESSION['user']) or $_SESSION['level'] != "mhs") {
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="../asset/css/adminlte.css" as="style" />
+    <link rel="preload" href="asset/css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link
@@ -56,7 +52,7 @@ if (!isset($_SESSION['user']) or $_SESSION['level'] != "mhs") {
         crossorigin="anonymous" />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="../asset/css/adminlte.css" />
+    <link rel="stylesheet" href="asset/css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
 </head>
 <!--end::Head-->
@@ -570,5 +566,6 @@ if (!isset($_SESSION['user']) or $_SESSION['level'] != "mhs") {
     <!--end::Script-->
 </body>
 <!--end::Body-->
+
 
 </html>
