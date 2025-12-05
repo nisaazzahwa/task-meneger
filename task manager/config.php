@@ -5,3 +5,4 @@ if ($konek) {
     echo "Koneksi Gagal!";
 }
 ?>
+yy
