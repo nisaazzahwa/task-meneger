@@ -21,25 +21,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     // Level removed
 
     if (!empty($username) && !empty($email) && !empty($password)) {
-        $username = $conn->real_escape_string($username);
-        $email = $conn->real_escape_string($email);
+        $username = $konek->real_escape_string($username);
+        $email = $konek->real_escape_string($email);
         $password_hash = md5($password);
 
         // Check if username OR email already exists
-        $check = $conn->query("SELECT id FROM users WHERE username='$username' OR email='$email'");
+        $check = $konek->query("SELECT id FROM users WHERE username='$username' OR email='$email'");
         if ($check->num_rows > 0) {
             $message = 'Username or Email already exists!';
             $message_type = 'danger';
         } else {
             // Insert new user with email, removed level
-            $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+            $stmt = $konek->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
             $stmt->bind_param('sss', $username, $email, $password_hash);
             if ($stmt->execute()) {
                 $message = 'User registered successfully!';
                 $message_type = 'success';
                 $_POST = array(); // Clear form
             } else {
-                $message = 'Registration failed: ' . $conn->error;
+                $message = 'Registration failed: ' . $konek->error;
                 $message_type = 'danger';
             }
             $stmt->close();
