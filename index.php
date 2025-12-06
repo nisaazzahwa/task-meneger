@@ -6,11 +6,11 @@ session_start();
 // Redirect to admin if already logged in
 // Removed check for $_SESSION['level']
 if (isset($_SESSION['user'])) {
-    header("Location: index/index.php");
+    header("Location: task manager/index.php");
     exit();
 }
 
-require_once 'task manager/db_connect.php';
+require_once 'task manager/config.php';
 
 $message = '';
 $message_type = '';
