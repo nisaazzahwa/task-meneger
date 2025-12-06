@@ -1,5 +1,5 @@
 <?php
-$p = $_GET['p']??'';
+$p = $_GET['p'] ?? 'dashboard';
 
 switch ($p) {
     case 'dashboard':
@@ -11,14 +11,11 @@ switch ($p) {
     case 'tugas':
         require_once "tugas.php";
         break;
-    case 'chart':
-        require_once "chart.php";
-        break;
     case 'delete':
         require_once "delete.php";
         break;
     default:
-        require_once "Dashboard.php";
+        require_once "dashboard.php";
         break;
 }
 ?>
