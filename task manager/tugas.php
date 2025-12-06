@@ -5,7 +5,6 @@ $aksi = $_GET['aksi'] ?? '';
 $id   = $_GET['id'] ?? '';
 
 
-// HAPUS DATA
 if ($aksi == 'hapus' && $id) {
   mysqli_query($konek, "DELETE FROM tugas WHERE id_tugas='$id'");
   echo "<script>alert('Data tugas berhasil dihapus!'); window.location='?p=tugas';</script>";
@@ -17,7 +16,6 @@ if ($aksi == 'hapus' && $id) {
 
 <?php
 
-// FORM TAMBAH TUGAS
 if ($aksi == 'tambah') {
 
   if (isset($_POST['simpan'])) {
@@ -29,13 +27,13 @@ if ($aksi == 'tambah') {
     $status          = $_POST['status'];
     $estimasi_waktu  = $_POST['estimasi_waktu'];
 
-    $query = "INSERT INTO tugas (nama_tugas, deskripsi, deadline, prioritas, status, estimasi_waktu)
+    $query = "INSERT INTO tugas (nama_tugas, deskripsi, deadline, prioritas, status, ekstimasi_waktu)
               VALUES ('$nama_tugas', '$deskripsi', '$deadline', '$prioritas', '$status', '$estimasi_waktu')";
 
     if (mysqli_query($konek, $query)) {
       echo "<script>alert('Data tugas berhasil ditambahkan!'); window.location='?p=tugas';</script>";
     } else {
-      echo "<div class='alert alert-danger'>Gagal menambah data!</div>";
+      echo "<div class='alert alert-danger'>Gagal menambah data: " . mysqli_error($konek) . "</div>";
     }
   }
 ?>
@@ -56,7 +54,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Deadline</label>
-    <input type="datetime-local" name="deadline" value="<?= date('Y-m-d\TH:i', strtotime($data['deadline'])) ?>" class="form-control" required>
+    <input type="datetime-local" name="deadline" class="form-control" required>
   </div>
 
   <div class="mb-3">
@@ -88,7 +86,6 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// FORM EDIT
 } elseif ($aksi == 'edit' && $id) {
 
   $data = mysqli_fetch_assoc(mysqli_query($konek, "SELECT * FROM tugas WHERE id_tugas='$id'"));
@@ -108,7 +105,7 @@ if ($aksi == 'tambah') {
                 deadline='$deadline',
                 prioritas='$prioritas',
                 status='$status',
-                estimasi_waktu='$estimasi_waktu'
+                ekstimasi_waktu='$estimasi_waktu'
                WHERE id_tugas='$id'";
 
     if (mysqli_query($konek, $update)) {
@@ -135,8 +132,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Deadline</label>
-   <input type="datetime-local" name="deadline" value="<?= date('Y-m-d\TH:i', strtotime($data['deadline'])) ?>" class="form-control" required>
-
+    <input type="datetime-local" name="deadline" value="<?= date('Y-m-d\TH:i', strtotime($data['deadline'])) ?>" class="form-control" required>
   </div>
 
   <div class="mb-3">
@@ -158,7 +154,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Estimasi Waktu</label>
-    <input type="time" name="estimasi_waktu" value="<?= htmlspecialchars($data['estimasi_waktu']) ?>" class="form-control" required>
+    <input type="time" name="estimasi_waktu" value="<?= htmlspecialchars($data['ekstimasi_waktu']) ?>" class="form-control" required>
   </div>
 
   <button type="submit" name="update" class="btn btn-warning">Update</button>
@@ -168,7 +164,6 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// DETAIL
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc(mysqli_query($konek, "SELECT * FROM tugas WHERE id_tugas='$id'"));
@@ -182,14 +177,14 @@ if ($aksi == 'tambah') {
   <tr><th>Deadline</th><td><?= htmlspecialchars($data['deadline']) ?></td></tr>
   <tr><th>Prioritas</th><td><?= htmlspecialchars($data['prioritas']) ?></td></tr>
   <tr><th>Status</th><td><?= htmlspecialchars($data['status']) ?></td></tr>
-  <tr><th>Estimasi Waktu</th><td><?= htmlspecialchars($data['estimasi_waktu']) ?></td></tr>
+  <!-- FIXED: Changed data key to 'ekstimasi_waktu' -->
+  <tr><th>Estimasi Waktu</th><td><?= htmlspecialchars($data['ekstimasi_waktu']) ?></td></tr>
 </table>
 
 <a href="?p=tugas" class="btn btn-secondary">Kembali</a>
 
 <?php
 
-// TAMPIL DATA TUGAS
 } else { ?>
 
 <h3>Data Tugas</h3>
@@ -220,11 +215,10 @@ if (mysqli_num_rows($query) > 0) {
     echo "<tr>";
     echo "<td>{$no}</td>";
     echo "<td>" . htmlspecialchars($row['nama_tugas']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['deadline']) . "</td>";
+    echo "<td>" . date('d M Y H:i', strtotime($row['deadline'])) . "</td>";
     echo "<td>" . htmlspecialchars($row['prioritas']) . "</td>";
     echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['estimasi_waktu']) . "</td>";
-
+    echo "<td>" . htmlspecialchars($row['ekstimasi_waktu']) . "</td>";
     echo "<td>
             <a href='?p=tugas&aksi=detail&id=" . urlencode($row['id_tugas']) . "' class='btn btn-info btn-sm'>Detail</a>
             <a href='?p=tugas&aksi=edit&id=" . urlencode($row['id_tugas']) . "' class='btn btn-warning btn-sm'>Edit</a>
