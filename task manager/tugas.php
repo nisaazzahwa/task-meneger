@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+require_once 'route.php';
 
 $aksi = $_GET['aksi'] ?? ''; 
 $id = $_GET['id'] ?? '';
@@ -15,7 +16,7 @@ if ($aksi == 'hapus' && $id) {
 <?php
 
 
-// FORM TAMBAH TUGAS
+// FORM TAMBAH TUGAS (ADD TASK)
 if ($aksi == 'tambah') {
   if (isset($_POST['simpan'])) {
     $judul = $_POST['judul'];
@@ -44,7 +45,8 @@ if ($aksi == 'tambah') {
     </div>
     <div class="mb-3">
       <label>Deadline</label>
-      <input type="date" name="deadline" class="form-control" required>
+      <!-- CHANGED FROM type="date" TO type="datetime-local" -->
+      <input type="datetime-local" name="deadline" class="form-control" required>
     </div>
     <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
     <a href="?p=tugas" class="btn btn-secondary">Kembali</a>
@@ -87,8 +89,8 @@ if ($aksi == 'tambah') {
       <textarea name="deskripsi" class="form-control" required><?= htmlspecialchars($data['deskripsi']) ?></textarea>
     </div>
     <div class="mb-3">
-      <label>Deadline</label>
-      <input type="date" name="deadline" value="<?= htmlspecialchars($data['deadline']) ?>" class="form-control" required>
+        <label class="form-label">Deadline</label>
+        <input type="datetime-local" name="deadline" value="<?= date('Y-m-d\TH:i', strtotime($data['deadline'])) ?>" class="form-control" required>
     </div>
     <button type="submit" name="update" class="btn btn-warning">Update</button>
     <a href="?p=tugas" class="btn btn-secondary">Kembali</a>
@@ -112,7 +114,7 @@ if ($aksi == 'tambah') {
 
   <?php
 
-// TAMPIL DATA TUGAS
+// TAMPIL DATA TUGAS (VIEW LIST)
 } else { ?>
 
   <h3>Data Tugas</h3>
@@ -140,7 +142,7 @@ if ($aksi == 'tambah') {
           echo "<td>{$no}</td>";
           echo "<td>" . htmlspecialchars($row['judul']) . "</td>";
           echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
-          echo "<td>" . htmlspecialchars($row['deadline']) . "</td>";
+          echo "<td>" . date('d M Y H:i', strtotime($row['deadline'])) . "</td>";
           echo "<td>
                   <a href='?p=tugas&aksi=detail&id=" . urlencode($row['id_tugas']) . "' class='btn btn-info btn-sm'>Detail</a>
                   <a href='?p=tugas&aksi=edit&id=" . urlencode($row['id_tugas']) . "' class='btn btn-warning btn-sm'>Edit</a>
