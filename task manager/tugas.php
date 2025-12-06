@@ -5,6 +5,7 @@ $aksi = $_GET['aksi'] ?? '';
 $id   = $_GET['id'] ?? '';
 
 
+// HAPUS DATA
 if ($aksi == 'hapus' && $id) {
   mysqli_query($konek, "DELETE FROM tugas WHERE id_tugas='$id'");
   echo "<script>alert('Data tugas berhasil dihapus!'); window.location='?p=tugas';</script>";
@@ -16,6 +17,7 @@ if ($aksi == 'hapus' && $id) {
 
 <?php
 
+// --- FORM TAMBAH TUGAS (ADD) ---
 if ($aksi == 'tambah') {
 
   if (isset($_POST['simpan'])) {
@@ -27,6 +29,7 @@ if ($aksi == 'tambah') {
     $status          = $_POST['status'];
     $estimasi_waktu  = $_POST['estimasi_waktu'];
 
+    // FIXED: Changed 'estimasi_waktu' to 'ekstimasi_waktu' to match your database
     $query = "INSERT INTO tugas (nama_tugas, deskripsi, deadline, prioritas, status, ekstimasi_waktu)
               VALUES ('$nama_tugas', '$deskripsi', '$deadline', '$prioritas', '$status', '$estimasi_waktu')";
 
@@ -54,6 +57,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Deadline</label>
+    <!-- FIXED: Removed 'value' because this is a new task -->
     <input type="datetime-local" name="deadline" class="form-control" required>
   </div>
 
@@ -86,6 +90,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
+// --- FORM EDIT ---
 } elseif ($aksi == 'edit' && $id) {
 
   $data = mysqli_fetch_assoc(mysqli_query($konek, "SELECT * FROM tugas WHERE id_tugas='$id'"));
@@ -99,6 +104,7 @@ if ($aksi == 'tambah') {
     $status          = $_POST['status'];
     $estimasi_waktu  = $_POST['estimasi_waktu'];
 
+    // FIXED: Changed 'estimasi_waktu' to 'ekstimasi_waktu' to match your database
     $update = "UPDATE tugas SET 
                 nama_tugas='$nama_tugas',
                 deskripsi='$deskripsi',
@@ -154,6 +160,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Estimasi Waktu</label>
+    <!-- FIXED: Changed data key to 'ekstimasi_waktu' to match DB -->
     <input type="time" name="estimasi_waktu" value="<?= htmlspecialchars($data['ekstimasi_waktu']) ?>" class="form-control" required>
   </div>
 
@@ -164,6 +171,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
+// --- DETAIL ---
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc(mysqli_query($konek, "SELECT * FROM tugas WHERE id_tugas='$id'"));
@@ -185,6 +193,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
+// --- TAMPIL DATA TUGAS (VIEW) ---
 } else { ?>
 
 <h3>Data Tugas</h3>
@@ -215,10 +224,13 @@ if (mysqli_num_rows($query) > 0) {
     echo "<tr>";
     echo "<td>{$no}</td>";
     echo "<td>" . htmlspecialchars($row['nama_tugas']) . "</td>";
+    // Formatted date nicely
     echo "<td>" . date('d M Y H:i', strtotime($row['deadline'])) . "</td>";
     echo "<td>" . htmlspecialchars($row['prioritas']) . "</td>";
     echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+    // FIXED: Changed key to 'ekstimasi_waktu'
     echo "<td>" . htmlspecialchars($row['ekstimasi_waktu']) . "</td>";
+
     echo "<td>
             <a href='?p=tugas&aksi=detail&id=" . urlencode($row['id_tugas']) . "' class='btn btn-info btn-sm'>Detail</a>
             <a href='?p=tugas&aksi=edit&id=" . urlencode($row['id_tugas']) . "' class='btn btn-warning btn-sm'>Edit</a>
