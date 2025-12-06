@@ -300,12 +300,6 @@ session_start();
                                 <p>tugas</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="./?p=progress class="nav-link">
-                                <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>progress and charts</p>
-                            </a>
-                        </li>
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>
@@ -563,4 +557,5 @@ session_start();
 
 
 </html>
+
 
