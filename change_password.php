@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-require_once 'index/config.php';
+require_once 'task mangaer/config.php';
 
 $message = '';
 $message_type = '';
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="assets/css/adminlte.css" />
+    <link rel="stylesheet" href="task manager/asset/css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
   </head>
   <!--begin::Body-->
@@ -227,7 +227,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
     ></script>
     <!--end::Required Plugin(Bootstrap 5)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <script src="assets/js/adminlte.js"></script>
+    <script src="task manager/asset/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
   </body>
   <!--end::Body-->
