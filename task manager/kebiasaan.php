@@ -189,8 +189,6 @@ if ($aksi == 'tambah') {
     <tr>
       <th>No</th>
       <th>Nama Kebiasaan</th>
-      <th>Deskripsi</th>
-      <th>Frequensi</th>
       <th>Waktu</th>
       <th>Opsi</th>
     </tr>
@@ -233,3 +231,4 @@ if (mysqli_num_rows($query) > 0) {
 } 
 ?>
 </div>
+
