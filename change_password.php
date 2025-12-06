@@ -21,12 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_user'])) {
     $email = $_POST['email'] ?? '';
 
     if (!empty($username) && !empty($email)) {
-        $username = $conn->real_escape_string($username);
-        $email = $conn->real_escape_string($email);
+        $username = $konek->real_escape_string($username);
+        $email = $konek->real_escape_string($email);
 
         // Check if user exists with matching username AND email
         $sql = "SELECT id FROM users WHERE username='$username' AND email='$email'";
-        $result = $conn->query($sql);
+        $result = $konek->query($sql);
 
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                 $password_hash = md5($new_pass);
 
                 // Update Password
-                $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $stmt = $konek->prepare("UPDATE users SET password = ? WHERE id = ?");
                 $stmt->bind_param('si', $password_hash, $user_id);
                 
                 if ($stmt->execute()) {
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                     echo "<script>alert('Password updated successfully! Please login.'); window.location.href='index.php';</script>";
                     exit();
                 } else {
-                    $message = 'Error updating password: ' . $conn->error;
+                    $message = 'Error updating password: ' . $konek->error;
                     $message_type = 'danger';
                 }
                 $stmt->close();
