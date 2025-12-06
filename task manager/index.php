@@ -295,7 +295,7 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./?p=jadwal_kuliah" class="nav-link">
+                            <a href="./?p=tugas" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
                                 <p>tugas</p>
                             </a>
