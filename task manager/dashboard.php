@@ -51,7 +51,7 @@ $kebiasaan = $konek->query("
                                     <td>".htmlspecialchars($row['status'])."</td>
                                     <td>".htmlspecialchars($row['estimasi_waktu'])."</td>
                                     <td>
-                                        <a href='edit_tugas.php?id={$row['id_tugas']}' class='btn btn-warning btn-sm'>Edit</a>
+                                        <a href='selesai_tugas.php?id={$row['id_tugas']}' class='btn btn-success btn-sm'>Selesai</a>
                                         <a href='hapus_tugas.php?id={$row['id_tugas']}' class='btn btn-danger btn-sm'>Hapus</a>
                                     </td>
                                 </tr>";
@@ -99,8 +99,9 @@ $kebiasaan = $konek->query("
                                     <td>".htmlspecialchars($row['waktu'])."</td>
                                     <td>".htmlspecialchars($row['keterangan'])."</td>
                                     <td>
-                                        <a href='edit_kebiasaan.php?id={$row['id_kebiasaan']}' class='btn btn-warning btn-sm'>Edit</a>
-                                        <a href='hapus_kebiasaan.php?id={$row['id_kebiasaan']}' class='btn btn-danger btn-sm'>Hapus</a>
+                                        <a href='selesai_tugas.php?id={$row['id_tugas']}' class='btn btn-success btn-sm'>Selesai</a>
+                                        <a href='hapus_tugas.php?id={$row['id_tugas']}' class='btn btn-danger btn-sm'>Hapus</a>
+
                                     </td>
                                 </tr>";
                                 $no++;
