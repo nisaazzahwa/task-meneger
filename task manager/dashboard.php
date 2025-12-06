@@ -1,27 +1,17 @@
 <?php
 require_once "config.php";
-
-/* =====================
-   PROSES HAPUS KEBIASAAN
-   ===================== */
 if (isset($_GET['hapus'])) {
     $id = intval($_GET['hapus']);
     $konek->query("DELETE FROM kebiasaan WHERE id_kebiasaan=$id");
     echo "<script>alert('Kebiasaan berhasil dihapus!');window.location='?';</script>";
 }
 
-/* =====================
-   PROSES SELESAI KEBIASAAN
-   ===================== */
 if (isset($_GET['selesai'])) {
     $id = intval($_GET['selesai']);
     $konek->query("UPDATE kebiasaan SET status='selesai' WHERE id_kebiasaan=$id");
     echo "<script>alert('Kebiasaan ditandai selesai!');window.location='?';</script>";
 }
 
-/* =====================
-   QUERY TUGAS & KEBIASAAN
-   ===================== */
 $tugas = $konek->query("
     SELECT * FROM tugas 
     WHERE deadline >= CURDATE()
