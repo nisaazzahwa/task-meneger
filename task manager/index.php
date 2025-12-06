@@ -301,7 +301,7 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./?p=prodi" class="nav-link">
+                            <a href="./?p=progress class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
                                 <p>progress and charts</p>
                             </a>
@@ -563,3 +563,4 @@ session_start();
 
 
 </html>
+
