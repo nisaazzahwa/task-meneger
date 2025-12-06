@@ -8,7 +8,7 @@ session_start();
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SIAKADEMIKA</title>
+    <title>task manager</title>
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -73,7 +73,7 @@ session_start();
                         </a>
                     </li>
                     <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">info</a></li>
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
@@ -241,7 +241,7 @@ session_start();
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                                <a href="../logout" class="btn btn-default btn-flat float-end">Sign out</a>
                             </li>
                             <!--end::Menu Footer-->
                         </ul>
@@ -266,7 +266,7 @@ session_start();
                         class="img-size-50 rounded-circle me-3" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
-                    <span class="brand-text fw-light">SIAKADEMIKA</span>
+                    <span class="brand-text fw-light">task manager</span>
                     <!--end::Brand Text-->
                 </a>
                 <!--end::Brand Link-->
@@ -285,31 +285,25 @@ session_start();
                         <li class="nav-item">
                             <a href="./?p=mahasiswa" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>mahasiswa</p>
+                                <p>dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="./?p=dosen" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>Dosen</p>
+                                <p>kebiasaan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="./?p=jadwal_kuliah" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
-                                <p> jadwal kuliah</p>
+                                <p>tugas</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="./?p=prodi" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>info prodi</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./?p=ganti pasword" class="nav-link">
-                                <i class="nav-icon bi bi-circle-fill"></i>
-                                <p>ganti pasword</p>
+                                <p>progress and charts</p>
                             </a>
                         </li>
                     </ul>
