@@ -283,13 +283,13 @@ session_start();
                         data-accordion="false">
                         <li class="nav-header">MENU UTAMA</li>
                         <li class="nav-item">
-                            <a href="./?p=mahasiswa" class="nav-link">
+                            <a href="./?p=dashboard" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
                                 <p>dashboard</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./?p=dosen" class="nav-link">
+                            <a href="./?p=kebiasaan" class="nav-link">
                                 <i class="nav-icon bi bi-circle-fill"></i>
                                 <p>kebiasaan</p>
                             </a>
