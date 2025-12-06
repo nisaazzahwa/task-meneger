@@ -9,7 +9,7 @@ if (isset($_SESSION['user'])) {
     exit();
 }
 
-require_once 'task manager/db_connect.php';
+require_once 'task manager/config.php';
 
 $message = '';
 $message_type = '';
