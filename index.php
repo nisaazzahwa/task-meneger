@@ -20,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = $_POST['password'] ?? '';
 
     if (!empty($username) && !empty($password)) {
-        $username = $conn->real_escape_string($username);
+        $username = $konek->real_escape_string($username);
         $password_hash = md5($password);
 
         // Check if input matches username OR email
         // Removed 'level' from SELECT
         $sql = "SELECT id, username FROM users WHERE (username='$username' OR email='$username') AND password='$password_hash'";
-        $result = $conn->query($sql);
+        $result = $konek->query($sql);
 
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
