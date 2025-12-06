@@ -5,11 +5,11 @@ session_start();
 
 // Allow access only if NOT logged in (since levels are removed, we treat everyone as standard users)
 if (isset($_SESSION['user'])) {
-    header("Location: index/index.php");
+    header("Location: task manager/index.php");
     exit();
 }
 
-require_once 'index/db_connect.php';
+require_once 'task manager/db_connect.php';
 
 $message = '';
 $message_type = '';
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="assets/css/adminlte.css" as="style" />
+    <link rel="preload" href="task manager/asset/css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="assets/css/adminlte.css" />
+    <link rel="stylesheet" href="task manager/asset/css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
   </head>
   <!--begin::Body-->
@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="assets/js/adminlte.js"></script>
+    <script src="task manager/asset/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
