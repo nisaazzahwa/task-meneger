@@ -8,8 +8,8 @@ switch ($p) {
     case 'mahasiswa':
         require_once "mahasiswa.php";
         break;
-    case 'add-mahasiswa':
-        require_once "add-mahasiswa.php";
+    case 'tugas':
+        require_once "tugas.php";
         break;
     case 'delete':
         require_once "delete.php";
