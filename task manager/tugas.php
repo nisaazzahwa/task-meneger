@@ -56,7 +56,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Deadline</label>
-    <input type="datetime-local" name="deadline" class="form-control" required>
+    <input type="datetime-local" name="deadline" value="<?= date('Y-m-d\TH:i', strtotime($data['deadline'])) ?>" class="form-control" required>
   </div>
 
   <div class="mb-3">
@@ -243,5 +243,7 @@ if (mysqli_num_rows($query) > 0) {
   </tbody>
 </table>
 
-<?php } ?>
+<?php 
+} 
+?>
 </div>
