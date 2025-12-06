@@ -16,17 +16,16 @@ if ($aksi == 'hapus' && $id) {
 
 <?php
 
-
 if ($aksi == 'tambah') {
 
   if (isset($_POST['simpan'])) {
 
     $nama_kebiasaan = $_POST['nama_kebiasaan'];
-    $deskripsi      = $_POST['deskripsi']; 
+    $deskripsi      = $_POST['deskripsi'];
     $waktu          = $_POST['waktu'];
     $frequensi      = $_POST['frequensi'];
 
-    $query = "INSERT INTO kebiasaan (nama_kebiasaan, deskripsi_kebiasaan, waktu, frequensi)
+    $query = "INSERT INTO kebiasaan (nama_kebiasaan, deskripsi, waktu, frequensi)
               VALUES ('$nama_kebiasaan', '$deskripsi', '$waktu', '$frequensi')";
 
     if (mysqli_query($konek, $query)) {
@@ -60,13 +59,14 @@ if ($aksi == 'tambah') {
     <label>Frequensi</label>
     <select name="frequensi" class="form-control" required>
       <option value="">-- Pilih --</option>
-      <option value="senin">Senin</option>
-      <option value="selasa">Selasa</option>
-      <option value="rabu">Rabu</option>
-      <option value="kamis">Kamis</option>
-      <option value="jumat">Jumat</option>
-      <option value="sabtu">Sabtu</option>
-      <option value="minggu">Minggu</option>
+      <option value="Senin">Senin</option>
+      <option value="Selasa">Selasa</option>
+      <option value="Rabu">Rabu</option>
+      <option value="Kamis">Kamis</option>
+      <option value="Jumat">Jumat</option>
+      <option value="Sabtu">Sabtu</option>
+      <option value="Minggu">Minggu</option>
+      <option value="Setiap Hari">Setiap Hari</option>
     </select>
   </div>
 
@@ -76,7 +76,6 @@ if ($aksi == 'tambah') {
 </form>
 
 <?php
-
 
 } elseif ($aksi == 'edit' && $id) {
 
@@ -91,7 +90,7 @@ if ($aksi == 'tambah') {
 
     $update = "UPDATE kebiasaan SET 
                 nama_kebiasaan='$nama_kebiasaan',
-                deskripsi_kebiasaan='$deskripsi',
+                deskripsi='$deskripsi',
                 waktu='$waktu',
                 frequensi='$frequensi'
                WHERE id_kebiasaan='$id'";
@@ -115,7 +114,7 @@ if ($aksi == 'tambah') {
 
   <div class="mb-3">
     <label>Deskripsi</label>
-    <textarea name="deskripsi" class="form-control" required><?= htmlspecialchars($data['deskripsi_kebiasaan']) ?></textarea>
+    <textarea name="deskripsi" class="form-control" required><?= htmlspecialchars($data['deskripsi']) ?></textarea>
   </div>
 
   <div class="mb-3">
@@ -128,10 +127,10 @@ if ($aksi == 'tambah') {
     <select name="frequensi" class="form-control" required>
       <option value="">-- Pilih --</option>
       <?php
-      $days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+      $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu', 'Setiap Hari'];
       foreach($days as $day) {
         $selected = ($data['frequensi'] == $day) ? 'selected' : '';
-        echo "<option value='$day' $selected>" . ucfirst($day) . "</option>";
+        echo "<option value='$day' $selected>$day</option>";
       }
       ?>
     </select>
@@ -144,7 +143,6 @@ if ($aksi == 'tambah') {
 
 <?php
 
-
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc(mysqli_query($konek, "SELECT * FROM kebiasaan WHERE id_kebiasaan='$id'"));
@@ -154,7 +152,7 @@ if ($aksi == 'tambah') {
 
 <table class="table table-bordered">
   <tr><th>Nama Kebiasaan</th><td><?= htmlspecialchars($data['nama_kebiasaan']) ?></td></tr>
-  <tr><th>Deskripsi</th><td><?= htmlspecialchars($data['deskripsi_kebiasaan']) ?></td></tr>
+  <tr><th>Deskripsi</th><td><?= htmlspecialchars($data['deskripsi']) ?></td></tr>
   <tr><th>Waktu</th><td><?= htmlspecialchars($data['waktu']) ?></td></tr>
   <tr><th>Frequensi</th><td><?= htmlspecialchars($data['frequensi']) ?></td></tr>
 </table>
@@ -162,7 +160,6 @@ if ($aksi == 'tambah') {
 <a href="?p=kebiasaan" class="btn btn-secondary">Kembali</a>
 
 <?php
-
 
 } else { 
 
@@ -174,7 +171,7 @@ if ($aksi == 'tambah') {
       if ($kategori == 1) {
           $where = " WHERE nama_kebiasaan LIKE '%$keyword%'";
       } elseif ($kategori == 2) {
-          $where = " WHERE deskripsi_kebiasaan LIKE '%$keyword%'";
+          $where = " WHERE deskripsi LIKE '%$keyword%'";
       } elseif ($kategori == 3) {
           $where = " WHERE frequensi LIKE '%$keyword%'";
       } elseif ($kategori == 4) {
@@ -208,7 +205,7 @@ if (mysqli_num_rows($query) > 0) {
     echo "<tr>";
     echo "<td>{$no}</td>";
     echo "<td>" . htmlspecialchars($row['nama_kebiasaan']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['deskripsi_kebiasaan']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['deskripsi']) . "</td>";
     echo "<td>" . htmlspecialchars($row['frequensi']) . "</td>";
     echo "<td>" . htmlspecialchars($row['waktu']) . "</td>";
 
@@ -234,4 +231,3 @@ if (mysqli_num_rows($query) > 0) {
 } 
 ?>
 </div>
-
