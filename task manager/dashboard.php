@@ -1,7 +1,4 @@
 <?php
-// ==========================================
-// 1. HANDLE ACTIONS (LOGIC)
-// ==========================================
 $aksi = $_GET['aksi'] ?? '';
 $id_action = $_GET['id'] ?? '';
 
@@ -32,9 +29,6 @@ if ($aksi == 'hapus_habit' && $id_action) {
     echo "<script>window.location='?p=dashboard';</script>";
 }
 
-// ==========================================
-// 2. PREPARE DATA (Charts & Tables)
-// ==========================================
 
 // CHART 1: TASKS
 $query_chart_tugas = $konek->query("
