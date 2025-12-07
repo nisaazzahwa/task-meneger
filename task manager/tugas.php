@@ -15,9 +15,7 @@ if ($aksi == 'hapus' && $id) {
 <div class="container mt-4">
 
 <?php
-// ==========================================
-// FORM TAMBAH (ADD)
-// ==========================================
+
 if ($aksi == 'tambah') {
 
   if (isset($_POST['simpan'])) {
@@ -80,9 +78,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// FORM EDIT
-// ==========================================
+
 } elseif ($aksi == 'edit' && $id) {
 
   // ADDED: AND user_id='$user_id'
@@ -156,9 +152,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// DETAIL VIEW
-// ==========================================
+
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc($konek->query("SELECT * FROM tugas WHERE id_tugas='$id' AND user_id='$user_id'"));
@@ -177,9 +171,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// LIST VIEW (SHOW ALL)
-// ==========================================
+
 } else { ?>
 
 <h3>Data Tugas</h3>
@@ -230,3 +222,4 @@ if ($query->num_rows > 0) {
 
 <?php } ?>
 </div>
+
