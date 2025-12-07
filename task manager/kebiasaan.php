@@ -16,9 +16,7 @@ if ($aksi == 'hapus' && $id) {
 
 <?php
 
-// ==========================================
-// FORM TAMBAH (ADD)
-// ==========================================
+
 if ($aksi == 'tambah') {
 
   if (isset($_POST['simpan'])) {
@@ -75,9 +73,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// FORM EDIT
-// ==========================================
+
 } elseif ($aksi == 'edit' && $id) {
 
   // ADDED: user_id check
@@ -138,9 +134,6 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// DETAIL VIEW
-// ==========================================
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc($konek->query("SELECT * FROM kebiasaan WHERE id_kebiasaan='$id' AND user_id='$user_id'"));
@@ -160,9 +153,6 @@ if ($aksi == 'tambah') {
 
 <?php
 
-// ==========================================
-// LIST VIEW (TABLE)
-// ==========================================
 } else { ?>
 
 <h3>Data Kebiasaan</h3>
@@ -211,3 +201,4 @@ if ($query->num_rows > 0) {
 
 <?php } ?>
 </div>
+
