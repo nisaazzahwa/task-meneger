@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-// 1. Redirect to task manager if already logged in
 if (isset($_SESSION['user'])) {
     header("Location: task manager/index.php");
     exit();
@@ -22,16 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $username = $konek->real_escape_string($username);
         $password_hash = md5($password);
 
-        // 2. Modified Query to get ID as well
-        $sql = "SELECT id, username FROM users WHERE (username='$username' OR email='$username') AND password='$password_hash'";
+        $sql = "SELECT id, username, role FROM users WHERE (username='$username' OR email='$username') AND password='$password_hash'";
         $result = $konek->query($sql);
 
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             
-            // 3. CRITICAL FIX: Save User ID to session
             $_SESSION['user'] = $row['username'];
             $_SESSION['user_id'] = $row['id']; 
+            $_SESSION['role'] = $row['role']; // 'admin' or 'user'
 
             header("Location: task manager/index.php");
             exit();
