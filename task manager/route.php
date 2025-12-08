@@ -11,8 +11,11 @@ switch ($p) {
     case 'tugas':
         require_once "tugas.php";
         break;
-    case 'delete':
-        require_once "delete.php";
+    case 'users_management':
+        require_once "users_management.php";
+        break;
+    case 'user_detail':
+        require_once "user_detail.php";
         break;
     default:
         require_once "dashboard.php";
