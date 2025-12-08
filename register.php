@@ -3,7 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-// Allow access only if NOT logged in (since levels are removed, we treat everyone as standard users)
 if (isset($_SESSION['user'])) {
     header("Location: task manager/index.php");
     exit();
@@ -18,26 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
-    // Level removed
 
     if (!empty($username) && !empty($email) && !empty($password)) {
         $username = $konek->real_escape_string($username);
         $email = $konek->real_escape_string($email);
         $password_hash = md5($password);
 
-        // Check if username OR email already exists
         $check = $konek->query("SELECT id FROM users WHERE username='$username' OR email='$email'");
         if ($check->num_rows > 0) {
             $message = 'Username or Email already exists!';
             $message_type = 'danger';
         } else {
-            // Insert new user with email, removed level
             $stmt = $konek->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
             $stmt->bind_param('sss', $username, $email, $password_hash);
             if ($stmt->execute()) {
                 $message = 'User registered successfully!';
                 $message_type = 'success';
-                $_POST = array(); // Clear form
+                $_POST = array(); 
             } else {
                 $message = 'Registration failed: ' . $konek->error;
                 $message_type = 'danger';
@@ -75,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Accessibility Features-->
-    <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
     <link rel="preload" href="task manager/asset/css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
@@ -136,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
               </div>
               <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
-            <!-- Added Email Field -->
             <div class="input-group mb-1">
               <div class="form-floating">
                 <input id="registerEmail" type="email" name="email" class="form-control" placeholder="" required />
@@ -151,7 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
               </div>
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
-            <!-- Removed Level Select Field -->
             
             <!--begin::Row-->
             <div class="row">
@@ -163,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             </div>
             <!--end::Row-->
           </form>
-          <!-- /.social-auth-links -->
           <p class="mb-0">
             <a href="index.php" class="link-primary text-center"> Back to Login </a>
         </div>
@@ -176,19 +168,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
       crossorigin="anonymous"
     ></script>
-    <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
+    <!--end::Third Party Plugin(OverlayScrollbars)-->
+    <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       crossorigin="anonymous"
     ></script>
-    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <!--end::Required Plugin(popperjs for Bootstrap 5)-->
+    <!--begin::Required Plugin(Bootstrap 5)-->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
       crossorigin="anonymous"
     ></script>
-    <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+    <!--end::Required Plugin(Bootstrap 5)-->
+    <!--begin::Required Plugin(AdminLTE)-->
     <script src="task manager/asset/js/adminlte.js"></script>
-    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
+    <!--end::Required Plugin(AdminLTE)-->
+    <!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
       const Default = {
