@@ -4,7 +4,6 @@
 $aksi = $_GET['aksi'] ?? ''; 
 $id   = $_GET['id'] ?? '';
 
-// --- DELETE LOGIC ---
 if ($aksi == 'hapus' && $id) {
   $konek->query("DELETE FROM kebiasaan WHERE id_kebiasaan='$id' AND user_id='$user_id'");
   echo "<script>alert('Data kebiasaan berhasil dihapus!'); window.location='?p=kebiasaan';</script>";
@@ -26,8 +25,6 @@ if ($aksi == 'tambah') {
     $waktu          = $_POST['waktu'];
     $frequensi      = $_POST['frequensi'];
 
-    // ADDED: user_id
-    // MATCHED COLUMN: deskripsi_kebiasaan
     $query = "INSERT INTO kebiasaan (user_id, nama_kebiasaan, deskripsi_kebiasaan, waktu, frequensi)
               VALUES ('$user_id', '$nama_kebiasaan', '$deskripsi', '$waktu', '$frequensi')";
 
@@ -76,7 +73,6 @@ if ($aksi == 'tambah') {
 
 } elseif ($aksi == 'edit' && $id) {
 
-  // ADDED: user_id check
   $data = mysqli_fetch_assoc($konek->query("SELECT * FROM kebiasaan WHERE id_kebiasaan='$id' AND user_id='$user_id'"));
 
   if (isset($_POST['update'])) {
@@ -134,6 +130,7 @@ if ($aksi == 'tambah') {
 
 <?php
 
+
 } elseif ($aksi == 'detail' && $id) {
 
   $data = mysqli_fetch_assoc($konek->query("SELECT * FROM kebiasaan WHERE id_kebiasaan='$id' AND user_id='$user_id'"));
@@ -153,12 +150,13 @@ if ($aksi == 'tambah') {
 
 <?php
 
+
 } else { ?>
 
 <h3>Data Kebiasaan</h3>
 <a href="?p=kebiasaan&aksi=tambah" class="btn btn-success mb-3">+ Tambah Kebiasaan</a>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped datatable">
   <thead class="table-primary">
     <tr>
       <th>No</th>
@@ -173,7 +171,6 @@ if ($aksi == 'tambah') {
 
 <?php
 $no = 1;
-// ADDED: user_id check
 $query = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' ORDER BY id_kebiasaan DESC");
 
 if ($query->num_rows > 0) {
@@ -201,4 +198,3 @@ if ($query->num_rows > 0) {
 
 <?php } ?>
 </div>
-
