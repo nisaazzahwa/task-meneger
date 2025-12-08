@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2025 at 07:53 AM
+-- Generation Time: Dec 08, 2025 at 02:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,7 +37,9 @@ CREATE TABLE `kebiasaan` (
 
 INSERT INTO `kebiasaan` (`id_kebiasaan`, `user_id`, `nama_kebiasaan`, `deskripsi_kebiasaan`, `frequensi`, `waktu`, `status`) VALUES
 (1, 1, 'water', 'drink', 'sabtu', '12:27:00', 'selesai'),
-(2, 1, 'read', 'read', 'setiap hari', '12:42:00', 'selesai');
+(2, 1, 'read', 'read', 'setiap hari', '12:42:00', 'selesai'),
+(3, 2, 'read', 'reading', 'setiap hari', '14:00:00', 'selesai'),
+(4, 2, 'read', 's', 'setiap hari', '15:03:00', 'selesai');
 
 -- --------------------------------------------------------
 
@@ -77,7 +79,10 @@ INSERT INTO `riwayat_kebiasaan` (`id`, `user_id`, `id_kebiasaan`, `tanggal`) VAL
 (18, 1, 1, '2025-12-01'),
 (19, 1, 1, '2025-11-06'),
 (20, 1, 1, '2025-11-05'),
-(21, 1, 1, '2025-11-04');
+(21, 1, 1, '2025-11-04'),
+(22, 2, 3, '2025-12-08'),
+(23, 2, 4, '2025-12-08'),
+(24, 2, 2, '2025-12-07');
 
 -- --------------------------------------------------------
 
@@ -102,7 +107,7 @@ CREATE TABLE `tugas` (
 --
 
 INSERT INTO `tugas` (`id_tugas`, `user_id`, `nama_tugas`, `deadline`, `prioritas`, `status`, `ekstimasi_waktu`, `deskripsi`, `tanggal_selesai`) VALUES
-(2, 1, 'web', '2025-12-06 23:11:00', 'sedang', 'selesai', '14:22:00', 'build a web', '2025-12-06'),
+(2, 1, 'ah', '2025-12-06 23:11:00', 'sedang', 'selesai', '14:22:00', 'build a web', '2025-12-06'),
 (3, 1, 'reading', '2025-12-06 13:48:00', 'rendah', 'selesai', '14:50:00', 'w', '2025-12-06'),
 (4, 1, 'web', '2025-12-05 12:50:00', 'tinggi', 'selesai', '12:50:00', 'w', '2025-12-06'),
 (5, 1, 'web', '2025-12-07 12:51:00', 'tinggi', 'selesai', '12:51:00', 'ww', '2025-12-06'),
@@ -115,7 +120,8 @@ INSERT INTO `tugas` (`id_tugas`, `user_id`, `nama_tugas`, `deadline`, `prioritas
 (12, 1, 'Fix CSS', '2025-12-06 13:51:34', 'sedang', 'selesai', '01:30:00', 'Styling dashboard', '2025-12-05'),
 (13, 1, 'Database Design', '2025-12-06 13:51:34', 'tinggi', 'selesai', '04:00:00', 'ERD Diagram', '2025-12-04'),
 (14, 1, 'Meeting', '2025-12-06 13:51:34', 'rendah', 'selesai', '00:45:00', 'Client meeting', '2025-12-04'),
-(15, 1, 'Write Report', '2025-12-06 13:51:34', 'sedang', 'selesai', '03:00:00', 'Weekly report', '2025-12-02');
+(15, 1, 'Write Report', '2025-12-06 13:51:34', 'sedang', 'selesai', '03:00:00', 'Weekly report', '2025-12-02'),
+(16, 1, 'wev', '2025-12-08 13:59:00', 'sedang', 'selesai', '15:00:00', 'readui', '2025-12-08');
 
 -- --------------------------------------------------------
 
@@ -127,15 +133,18 @@ CREATE TABLE `users` (
   `id` int(12) NOT NULL,
   `username` varchar(200) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` enum('user','admin') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`) VALUES
-(1, 'admin', 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `role`) VALUES
+(1, 'admin', 'admin@example.com', '21232f297a57a5a743894a0e4a801fc3', 'admin'),
+(2, 'ahmed', 'ahmed@exaample.com', '21232f297a57a5a743894a0e4a801fc3', 'user'),
+(3, 'user', 'user@example.com', 'ee11cbb19052e40b07aac0ca060c23ee', 'user');
 
 --
 -- Indexes for dumped tables
@@ -174,25 +183,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `kebiasaan`
 --
 ALTER TABLE `kebiasaan`
-  MODIFY `id_kebiasaan` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kebiasaan` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `riwayat_kebiasaan`
 --
 ALTER TABLE `riwayat_kebiasaan`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_tugas` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
