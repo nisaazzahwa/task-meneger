@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -10,12 +9,10 @@ $message = '';
 $message_type = '';
 $step = 1; // Default state: Step 1 (Verify User)
 
-// Check if user is already verified in this session to stay on Step 2
 if (isset($_SESSION['reset_user_id'])) {
     $step = 2;
 }
 
-// --- LOGIC FOR STEP 1: VERIFY USER ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_user'])) {
     $username = $_POST['username'] ?? '';
     $email = $_POST['email'] ?? '';
@@ -24,13 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_user'])) {
         $username = $konek->real_escape_string($username);
         $email = $konek->real_escape_string($email);
 
-        // Check if user exists with matching username AND email
         $sql = "SELECT id FROM users WHERE username='$username' AND email='$email'";
         $result = $konek->query($sql);
 
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            // User found, save ID in session and move to Step 2
             $_SESSION['reset_user_id'] = $row['id'];
             $step = 2;
             $message = 'User verified. Please enter your new password.';
@@ -45,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_user'])) {
     }
 }
 
-// --- LOGIC FOR STEP 2: RESET PASSWORD ---
+// --- STEP 2: RESET PASSWORD ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
     $new_pass = $_POST['new_password'] ?? '';
     $confirm_pass = $_POST['confirm_password'] ?? '';
@@ -56,12 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                 $user_id = $_SESSION['reset_user_id'];
                 $password_hash = md5($new_pass);
 
-                // Update Password
                 $stmt = $konek->prepare("UPDATE users SET password = ? WHERE id = ?");
                 $stmt->bind_param('si', $password_hash, $user_id);
                 
                 if ($stmt->execute()) {
-                    // Success: Clear session and redirect to login
                     unset($_SESSION['reset_user_id']);
                     echo "<script>alert('Password updated successfully! Please login.'); window.location.href='index.php';</script>";
                     exit();
@@ -71,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reset_password'])) {
                 }
                 $stmt->close();
             } else {
-                // Session expired or invalid access
                 $step = 1;
                 $message = 'Session expired. Please verify your details again.';
                 $message_type = 'danger';
