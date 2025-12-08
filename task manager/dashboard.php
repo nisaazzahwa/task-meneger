@@ -1,4 +1,5 @@
 <?php
+
 $aksi = $_GET['aksi'] ?? '';
 $id_action = $_GET['id'] ?? '';
 
@@ -30,12 +31,13 @@ if ($aksi == 'hapus_habit' && $id_action) {
 }
 
 
+
 // CHART 1: TASKS
 $query_chart_tugas = $konek->query("
     SELECT tanggal_selesai, SUM(TIME_TO_SEC(ekstimasi_waktu)/3600) as total_jam
     FROM tugas 
     WHERE user_id = '$user_id' AND status = 'selesai' AND tanggal_selesai IS NOT NULL
-    GROUP BY tanggal_selesai ORDER BY tanggal_selesai ASC LIMIT 7
+    GROUP BY tanggal_selesai ORDER BY tanggal_selesai ASC LIMIT 7 
 ");
 $tugas_dates = []; $tugas_data = [];
 while($row = $query_chart_tugas->fetch_assoc()) {
@@ -55,7 +57,6 @@ while($row = $query_chart_habit->fetch_assoc()) {
     $habit_data[] = $row['total_done'];
 }
 
-// TABLES (Pending Items)
 $tugas = $konek->query("SELECT * FROM tugas WHERE user_id='$user_id' AND status='belum' ORDER BY deadline ASC");
 $kebiasaan = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' AND status='belum' ORDER BY id_kebiasaan DESC");
 ?>
@@ -91,13 +92,13 @@ $kebiasaan = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' AND
             <!-- 2. TABLES ROW -->
             <div class="row">
                 <!-- TUGAS TABLE -->
-                <div class="col-md-12">
+                <div class="col-md-12 mb-4">
                     <div class="card">
                         <div class="card-header bg-primary text-white">
                             <h3 class="card-title">Deadline Terbaru</h3>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -121,7 +122,7 @@ $kebiasaan = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' AND
                                             <a href='?p=dashboard&aksi=hapus_tugas&id={$row['id_tugas']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Hapus?')\">Hapus</a>
                                         </td>
                                     </tr>"; $no++;
-                                }} else { echo "<tr><td colspan='6' class='text-center'>Tidak ada tugas pending.</td></tr>"; } ?>
+                                }} ?>
                                 </tbody>
                             </table>
                         </div>
@@ -135,7 +136,7 @@ $kebiasaan = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' AND
                             <h3 class="card-title">Daftar Kebiasaan</h3>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped datatable">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -157,14 +158,13 @@ $kebiasaan = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' AND
                                             <a href='?p=dashboard&aksi=hapus_habit&id={$row['id_kebiasaan']}' class='btn btn-danger btn-sm' onclick=\"return confirm('Hapus?')\">Hapus</a>
                                         </td>
                                     </tr>"; $no++;
-                                }} else { echo "<tr><td colspan='5' class='text-center'>Belum ada kebiasaan.</td></tr>"; } ?>
+                                }} ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 </div>
