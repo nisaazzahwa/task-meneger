@@ -26,8 +26,6 @@ if ($aksi == 'tambah') {
     $status          = $_POST['status'];
     $estimasi_waktu  = $_POST['estimasi_waktu'];
 
-    // ADDED: user_id
-    // FIXED: ekstimasi_waktu
     $query = "INSERT INTO tugas (user_id, nama_tugas, deskripsi, deadline, prioritas, status, ekstimasi_waktu)
               VALUES ('$user_id', '$nama_tugas', '$deskripsi', '$deadline', '$prioritas', '$status', '$estimasi_waktu')";
 
@@ -81,7 +79,6 @@ if ($aksi == 'tambah') {
 
 } elseif ($aksi == 'edit' && $id) {
 
-  // ADDED: AND user_id='$user_id'
   $data = mysqli_fetch_assoc($konek->query("SELECT * FROM tugas WHERE id_tugas='$id' AND user_id='$user_id'"));
 
   if (isset($_POST['update'])) {
@@ -177,7 +174,7 @@ if ($aksi == 'tambah') {
 <h3>Data Tugas</h3>
 <a href="?p=tugas&aksi=tambah" class="btn btn-success mb-3">+ Tambah Tugas</a>
 
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped datatable">
   <thead class="table-primary">
     <tr>
       <th>No</th>
@@ -193,7 +190,6 @@ if ($aksi == 'tambah') {
 
 <?php
 $no = 1;
-// ADDED: WHERE user_id='$user_id'
 $query = $konek->query("SELECT * FROM tugas WHERE user_id='$user_id' ORDER BY id_tugas DESC");
 
 if ($query->num_rows > 0) {
@@ -222,4 +218,3 @@ if ($query->num_rows > 0) {
 
 <?php } ?>
 </div>
-
