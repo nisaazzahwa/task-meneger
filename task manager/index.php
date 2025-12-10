@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 
 $username = $_SESSION['user'];
 $user_id = 0;
-$role = $_SESSION['role'] ?? 'user'; // Default to 'user'
+$role = $_SESSION['role'] ?? 'user';
 
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
     if ($u_query && $u_query->num_rows > 0) {
         $u_row = $u_query->fetch_assoc();
         $user_id = $u_row['id'];
-        $role = $u_row['role']; // Update role from DB just in case
+        $role = $u_row['role'];
         $_SESSION['user_id'] = $user_id;
         $_SESSION['role'] = $role;
     }
@@ -42,21 +42,26 @@ if (isset($_SESSION['user_id'])) {
 
     <!-- 2. DATATABLES CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css" />
 </head>
 
-<body class="sidebar-expand-lg sidebar-open bg-body-tertiary">
+<!-- FIXED BODY CLASSES: Removed 'sidebar-open' so it works on mobile -->
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    
     <div class="app-wrapper">
         
         <!-- HEADER -->
         <nav class="app-header navbar navbar-expand bg-body">
             <div class="container-fluid">
                 <ul class="navbar-nav">
-                    <li class="nav-item"> <a class="nav-link" data-lte-toggle="sidebar" href="#"><i class="bi bi-list"></i></a> </li>
+                    <li class="nav-item"> 
+                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button"><i class="bi bi-list"></i></a> 
+                    </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <span class="d-none d-md-inline"><?= htmlspecialchars($username) ?> (<?= htmlspecialchars($role) ?>)</span>
+                            <span class="d-none d-md-inline fw-bold"><?= htmlspecialchars($username) ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <li class="user-footer">
@@ -98,7 +103,7 @@ if (isset($_SESSION['user_id'])) {
                             </a>
                         </li>
 
-                        <!-- 3. ADMIN ONLY LINK -->
+                        <!-- ADMIN ONLY LINK -->
                         <?php if ($role == 'admin'): ?>
                         <li class="nav-header">ADMINISTRATOR</li>
                         <li class="nav-item">
@@ -115,7 +120,9 @@ if (isset($_SESSION['user_id'])) {
         </aside>
 
         <!-- MAIN CONTENT -->
-        <?php require_once "route.php"; ?>
+        <main class="app-main">
+            <?php require_once "route.php"; ?>
+        </main>
 
     </div>
 
@@ -129,6 +136,8 @@ if (isset($_SESSION['user_id'])) {
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -140,8 +149,23 @@ if (isset($_SESSION['user_id'])) {
             }
         });
 
+        // Initialize DataTables with Responsive Settings
         $(document).ready(function() {
-            $('.datatable').DataTable();
+            $('.datatable').DataTable({
+                responsive: true,
+                autoWidth: false, 
+                language: {
+                    search: "Search:",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                }
+            });
         });
     </script>
 </body>
