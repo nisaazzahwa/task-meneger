@@ -169,30 +169,29 @@ if ($aksi == 'tambah') {
   </thead>
   <tbody>
 
-<?php
-$no = 1;
-$query = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' ORDER BY id_kebiasaan DESC");
+    <?php
+    $no = 1;
+    // Query fetches habits
+    $query = $konek->query("SELECT * FROM kebiasaan WHERE user_id='$user_id' ORDER BY id_kebiasaan DESC");
 
-if ($query->num_rows > 0) {
-  while ($row = $query->fetch_assoc()) {
-    echo "<tr>";
-    echo "<td>{$no}</td>";
-    echo "<td>" . htmlspecialchars($row['nama_kebiasaan']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['deskripsi_kebiasaan']) . "</td>";
-    echo "<td>" . ucwords(htmlspecialchars($row['frequensi'])) . "</td>";
-    echo "<td>" . htmlspecialchars($row['waktu']) . "</td>";
-    echo "<td>
-            <a href='?p=kebiasaan&aksi=detail&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-info btn-sm'>Detail</a>
-            <a href='?p=kebiasaan&aksi=edit&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-warning btn-sm'>Edit</a>
-            <a href='?p=kebiasaan&aksi=hapus&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Yakin mau hapus data ini?\")'>Hapus</a>
-          </td>";
-    echo "</tr>";
-    $no++;
-  }
-} else {
-  echo "<tr><td colspan='6' class='text-center'>Belum ada data kebiasaan</td></tr>";
-}
-?>
+    // Loop through data
+    while ($row = $query->fetch_assoc()) {
+      echo "<tr>";
+      echo "<td>{$no}</td>";
+      echo "<td>" . htmlspecialchars($row['nama_kebiasaan']) . "</td>";
+      echo "<td>" . htmlspecialchars($row['deskripsi_kebiasaan']) . "</td>";
+      echo "<td>" . ucwords(htmlspecialchars($row['frequensi'])) . "</td>";
+      echo "<td>" . htmlspecialchars($row['waktu']) . "</td>";
+      echo "<td>
+              <a href='?p=kebiasaan&aksi=detail&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-info btn-sm'>Detail</a>
+              <a href='?p=kebiasaan&aksi=edit&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-warning btn-sm'>Edit</a>
+              <a href='?p=kebiasaan&aksi=hapus&id=" . urlencode($row['id_kebiasaan']) . "' class='btn btn-danger btn-sm' onclick='return confirm(\"Yakin mau hapus data ini?\")'>Hapus</a>
+            </td>";
+      echo "</tr>";
+      $no++;
+    }
+    ?>
+
   </tbody>
 </table>
 
